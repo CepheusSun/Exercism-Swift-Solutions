@@ -3,31 +3,23 @@ import Foundation
 
 struct Squares {
     
-    private var list: [Int] = []
+    private var value: Int!
     
     init(_ value: Int) {
-        for i in 1...value {
-            self.list.append(i)
-        }
+        self.value = value
     }
     
     var squareOfSum: Int {
-        let sum = list.sum
+        
+        let sum = (1...value).reduce(0, +)
         return sum * sum
     }
     
     var sumOfSquares: Int {
-        return list.map { $0 * $0 }.sum
+        return (1...value).map { $0 * $0 }.reduce(0, +)
     }
     
     var differenceOfSquares: Int {
         return squareOfSum - sumOfSquares
-    }
-}
-
-extension Array where Element == Int {
-
-    var sum: Int {
-        return self.reduce(0, +)
     }
 }
