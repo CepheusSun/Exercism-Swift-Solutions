@@ -2,5 +2,10 @@
 
 extension Collection {
     
-    func accumulate()
+    func accumulate<E>(_ f: (Element) -> E) -> [E] {
+        
+        return self.map({ f($0 )})
+    }
+    
+
 }
