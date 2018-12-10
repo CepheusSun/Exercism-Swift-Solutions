@@ -8,15 +8,21 @@ struct DNA {
     private var nucleotideCounts = ["A":0, "G":0, "C":0, "T":0]
     
     init?(strand: String) {
-        let regexString = "^[ATCG]*$"
+        
+//        let regexString = "^[ATCG]*$"
+//
+//        let predicate = NSPredicate(format: "SELF MATCHES %@", regexString)
+//        guard predicate.evaluate(with: strand) else { return nil }
+//        self.strand = strand
 
-        let predicate = NSPredicate(format: "SELF MATCHES %@", regexString)
-        guard predicate.evaluate(with: strand) else { return nil }
+        guard Set(strand).isSubset(of: Set("ATCG")) else {
+            return nil
+        }
         self.strand = strand
         
-        
-        self.strand.forEach {
-            self.nucleotideCounts[String($0)] = self.nucleotideCounts[String($0)]! + 1
+        self.nucleotideCounts = "ATCG".map(String.init).reduce(into: [:]) { (d, s) in
+            let v = strand.filter({String($0) == s}).count
+            d[s] = v
         }
         
     }
