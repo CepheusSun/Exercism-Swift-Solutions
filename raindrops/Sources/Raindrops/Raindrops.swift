@@ -10,17 +10,11 @@ struct Raindrops {
     }
     
     var sounds: String {
-        get {
-            var res = ""
-            if times % 3 == 0 {
-                res.append("Pling")
-            }
-            if times % 5 == 0 {
-                res.append("Plang")
-            }
-            if times % 7 == 0 {
-                res.append("Plong")
-            }
+        get { 
+           let res = [(3, "Pling"),
+                      (5, "Plang"),
+                      (7, "Plong")].map({ times % $0 == 0 ? $1 : "" })
+            .joined()
             return res == "" ? "\(times)" : res
         }
     }
