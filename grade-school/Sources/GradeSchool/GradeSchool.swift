@@ -2,27 +2,29 @@
 import Foundation
 
 class GradeSchool {
+
+    var roster = [Int:[String]]()
     
-    struct Student {
-        let name: String
-        let grade: Int
+    func addStudent(_ name: String, grade: Int) {
+        roster[grade] = (roster[grade] ?? []) + [name]
     }
     
-    private var list: [Student] = []
-    
-    func addStudent(_ name: String, grades: Int) {
-        list.append(Student(name: name, grade: grades))
+    var sortedRoster: [Int: [String]] {
+        var sorted = [Int:[String]]()
+        for k in roster.keys.sorted() {
+            sorted[k] = roster[k]!.sorted()
+        }
+        return sorted
     }
     
-    var roster: [Int: [String]] {
-        return [:]
-    }
-    
-    var sortedRoster: [[Int: [String]]] {
-        
-        list.sort(by: { return $0.grade > $1.grade} )
-        
-        return []
+    func studentsInGrade(_ grade: Int) -> [String] {
+        return roster[grade] ?? []
     }
 }
 
+
+func xxx() {
+    let school = GradeSchool()
+    
+    school.addStudent("a", grade: 100)
+}
